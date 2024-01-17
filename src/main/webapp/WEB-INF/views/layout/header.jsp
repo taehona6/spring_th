@@ -23,17 +23,17 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
+	        <li class="nav-item">
+				<a class="nav-link" href="/board/register">글쓰기</a>
+	        </li>
+        	<li class="nav-item">
+				<a class="nav-link" href="/board/">게시판</a>
+			</li>
         <sec:authorize access="isAuthenticated()">
 	        <sec:authentication property="principal.mvo.email" var="authEmail"/>
 	        <sec:authentication property="principal.mvo.nickName" var="authNick"/>
 	        <sec:authentication property="principal.mvo.authList" var="auths"/>
 	        
-	        <li class="nav-item">
-				<a class="nav-link" href="/board/register">글쓰기</a>
-	        </li>
-        	<li class="nav-item">
-				<a class="nav-link" href="/board/list">게시판</a>
-			</li>
 	        
 	        <c:choose>
 	        	<c:when test="${
