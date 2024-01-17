@@ -16,7 +16,7 @@
 		</div>
 		<div class="mb-3">
 			<label for="content" class="form-label">content</label>
-			<textarea class="form-control" name="content" id="content" rows="3" disabled>${bvo.content}"</textarea>
+			<textarea class="form-control" name="content" id="content" rows="3" disabled>${bvo.content}</textarea>
 		</div>
 		
 	<!-- 	<div class="mb-3">

@@ -40,7 +40,7 @@ public class BoardController {
 	@GetMapping("/{bno}")
 	public String detail(@PathVariable long bno,Model m) {
 		log.info("detail in/ bno:{}",bno);
-		m.addAttribute(bsv.getDetail(bno));
+		m.addAttribute("bvo",bsv.getDetail(bno));
 		return "/board/detail";
 	}
 	
