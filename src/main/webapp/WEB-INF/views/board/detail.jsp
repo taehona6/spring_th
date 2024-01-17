@@ -6,7 +6,7 @@
 <!-- Body -->
 <div class="container-md" style="width: 500px;">
 		<div class="mb-3">
-			<label for="title" class="form-label">title</label> <input
+			<label for="title" class="form-label">제목 (조회수 : ${bvo.readCount}) [${bvo.cmtQty}]</label> <input
 				type="text" name="title" class="form-control" id="title" value="${bvo.title}" disabled
 				placeholder="title">
 		</div>
@@ -30,7 +30,7 @@
 		</div>
 		
 		
-		<button type="submit" class="btn btn-primary" id="regBtn">게시물 작성</button>
+		<button type="submit" class="btn btn-primary" id="regBtn">수정</button>
 </div>
 
 

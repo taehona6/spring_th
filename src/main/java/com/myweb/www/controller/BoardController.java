@@ -1,6 +1,12 @@
 package com.myweb.www.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +44,17 @@ public class BoardController {
 	}
 	
 	@GetMapping("/{bno}")
-	public String detail(@PathVariable long bno,Model m) {
+	public String detail(@PathVariable long bno,Model m,HttpServletRequest request) {
+		HttpSession ses = request.getSession();
+		
+		if(ses.getAttribute("readList")==null) {
+			List<Long> readList = new ArrayList<>();
+			readList.add(bno);
+			ses.setAttribute("readList", readList);
+		}
+		
+		
+//		readList.add(bno);
 		log.info("detail in/ bno:{}",bno);
 		m.addAttribute("bvo",bsv.getDetail(bno));
 		return "/board/detail";

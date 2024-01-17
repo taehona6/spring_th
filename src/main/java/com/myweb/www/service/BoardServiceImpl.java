@@ -46,7 +46,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardVO getDetail(long bno) {
-		return bdao.selectDetail(bno);
+		BoardVO bvo = bdao.selectDetail(bno);
+		
+		return bvo; 
 	}
 
 }
