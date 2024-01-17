@@ -1,0 +1,38 @@
+create table board(
+bno bigint primary key auto_increment,
+title varchar(200) not null,
+writer varchar(200) not null,
+content text not null,
+reg_at datetime default now(),
+mod_at datetime default now(),
+read_count int default 0,
+cmt_qty int default 0,
+has_file int default 0);
+
+create table comment(
+cno bigint primary key auto_increment,
+bno bigint not null,
+writer varchar(100) not null,
+content text not null,
+reg_at datetime default now(),
+mod_at datetime default now());
+
+create table member(
+email varchar(100) primary key,
+pwd varchar(1000) not null,
+nick_name varchar(100) not null,
+reg_at datetime default now(),
+last_login datetime default now());
+
+create table auth_member(
+email varchar(100) not null,
+auth varchar(50) not null default 'ROLE_USER');
+
+create table file(
+uuid varchar(256) primary key,
+save_dir varchar(256) not null,
+file_name varchar(256) not null,
+file_type tinyint(1) default 0,
+bno bigint,
+file_size bigint,
+reg_at datetime default now());
