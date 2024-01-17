@@ -17,4 +17,6 @@ public interface BoardService {
 
 	BoardVO getDetail(long bno);
 
+	int addReadCount(long bno);
+
 }

@@ -51,4 +51,10 @@ public class BoardServiceImpl implements BoardService {
 		return bvo; 
 	}
 
+	@Override
+	public int addReadCount(long bno) {
+		// TODO Auto-generated method stub
+		return bdao.updateReadCount(bno);
+	}
+
 }

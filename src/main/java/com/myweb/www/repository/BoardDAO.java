@@ -19,4 +19,6 @@ public interface BoardDAO {
 
 	BoardVO selectDetail(long bno);
 
+	int updateReadCount(long bno);
+
 }

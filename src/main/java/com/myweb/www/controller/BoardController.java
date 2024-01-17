@@ -1,5 +1,7 @@
 package com.myweb.www.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,17 +48,26 @@ public class BoardController {
 	@GetMapping("/{bno}")
 	public String detail(@PathVariable long bno,Model m,HttpServletRequest request) {
 		HttpSession ses = request.getSession();
-		
-		if(ses.getAttribute("readList")==null) {
-			List<Long> readList = new ArrayList<>();
-			readList.add(bno);
-			ses.setAttribute("readList", readList);
+		List<Long> readList = null;
+		BoardVO bvo = bsv.getDetail(bno);
+		if(bvo == null) {
+			return "index";
 		}
 		
-		
-//		readList.add(bno);
-		log.info("detail in/ bno:{}",bno);
-		m.addAttribute("bvo",bsv.getDetail(bno));
+		readList = (ArrayList<Long>)ses.getAttribute("readList");
+		if(readList == null) {
+			readList = new ArrayList<Long>();
+			bsv.addReadCount(bno);
+			readList.add(bno);
+			ses.setAttribute("readList", readList);
+		}else {
+			if(!readList.contains(bno)) {
+				readList.add(bno);
+				bsv.addReadCount(bno);
+				ses.setAttribute("readList", readList);
+			}
+		}
+		m.addAttribute("bvo",bvo);
 		return "/board/detail";
 	}
 	
