@@ -111,6 +111,19 @@ document.addEventListener('click',(e)=>{
             }
         })
 
+    }else if(e.target.classList.contains("cmtDelBtn")){
+        let cmtData = {
+            cno : e.target.closest('div').dataset.cno,
+            bno : bnoVal
+        }
+        deleteComment(cmtData).then(result=>{
+            console.log(result)
+            if(result.length>0){
+                alert('삭제성공')
+                spreadComment(bnoVal)
+                document.getElementById('cmtQty').innerText=result;
+            }
+        })
     }
 
 })
@@ -123,6 +136,24 @@ async function updateComment(cmtData){
             method : "put",
             headers : {
                 "content-type" : "application/json;charset=utf-8"
+            },
+            body : JSON.stringify(cmtData)
+        }
+        const resp = await fetch(url,config)
+        const result = await resp.text()
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function deleteComment(cmtData){
+    try {
+        const url = "/comment/"
+        const config = {
+            method : "delete",
+            headers : {
+                "content-type" : "application/json ; charset=utf-8"
             },
             body : JSON.stringify(cmtData)
         }

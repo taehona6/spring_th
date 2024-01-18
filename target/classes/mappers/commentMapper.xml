@@ -18,4 +18,8 @@
 	update comment set content=#{content},mod_at = now() where cno=#{cno}
 </update>
 
+<delete id="deleteComment">
+	delete from comment where cno=#{cno}
+</delete>
+
 </mapper>

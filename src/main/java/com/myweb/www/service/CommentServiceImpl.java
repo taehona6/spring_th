@@ -41,4 +41,13 @@ public class CommentServiceImpl implements CommentService {
 		// TODO Auto-generated method stub
 		return cdao.updateComment(cvo);
 	}
+
+	@Transactional
+	@Override
+	public int removeComment(CommentVO cvo) {
+		cdao.deleteComment(cvo.getCno());
+		bdao.updateCmtQty(cvo.getBno());
+		int cmtQty = bdao.selectCmtQty(cvo.getBno());
+		return cmtQty;
+	}
 }

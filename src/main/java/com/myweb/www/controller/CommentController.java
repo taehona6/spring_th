@@ -3,6 +3,7 @@ package com.myweb.www.controller;
 import java.util.List;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +52,15 @@ public class CommentController {
 		int isOk = csv.modifyComment(cvo);
 		
 		return isOk>0 ? "1":"0";
+	}
+	
+	@DeleteMapping
+	public String removeComment(@RequestBody CommentVO cvo) {
+		log.info("cvo ::>> {}",cvo);
+		int cmtQty = csv.removeComment(cvo);
+		log.info("cmtQTy ::>> {}",cmtQty);
+		
+		return String.valueOf(cmtQty);
 	}
 	
 }
