@@ -46,6 +46,14 @@
   		delete from board where bno=#{bno}
   	</delete>
   
+  	<update id="updateCmtQty">
+  		update board b set cmt_qty = (select count(bno) from comment where bno=b.bno) where bno =#{bno}
+  	</update>
+  	
+  	<select id="selectCmtQty" resultType="int">
+  		select cmt_qty from board where bno = #{bno}
+  	</select>
+  	
   <sql id="search">
 		<if test="type!=null">
 			<trim prefix="where (" suffix=")" prefixOverrides="or">

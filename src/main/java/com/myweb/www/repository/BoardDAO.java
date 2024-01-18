@@ -25,4 +25,8 @@ public interface BoardDAO {
 
 	int delete(long bno);
 
+	int updateCmtQty(long bno);
+
+	int selectCmtQty(long bno);
+
 }

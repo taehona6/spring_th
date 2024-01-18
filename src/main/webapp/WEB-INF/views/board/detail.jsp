@@ -8,7 +8,7 @@
 	<c:set value="${bdto.bvo}" var="bvo"/>
 	
 		<div class="mb-3">
-			<label for="title" class="form-label">[${bvo.bno}]번 게시글 (조회수 : ${bvo.readCount} / [${bvo.cmtQty}])</label> <input
+			<label for="title" class="form-label">[${bvo.bno}]번 게시글 (조회수 : ${bvo.readCount} / [<span id="cmtQty">${bvo.cmtQty}</span>])</label> <input
 				type="text" name="title" class="form-control" id="title" value="${bvo.title}" disabled
 				placeholder="title">
 		</div>
@@ -54,13 +54,16 @@
 		  <div class="mb-3 row">
 		    <label id="cmtWriter" for="inputPassword" class="col-sm-2 col-form-label">Tester</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="" id="cmtText"><button type="button" id="cmtPostBnt" class="btn btn-primary">등록</button>
+		      <input type="text" class="" id="cmtText"><button type="button" id="cmtPostBtn" class="btn btn-primary">등록</button>
 		    </div>
 		  </div>
 
 </div>
 
-
+<script>
+let bnoVal = `<c:out value="${bdto.bvo.bno}"/>`;
+</script>
 <script src="/resources/js/boardComment.js"></script>
+
 <!-- /Body -->
 <jsp:include page="../layout/footer.jsp"></jsp:include>
