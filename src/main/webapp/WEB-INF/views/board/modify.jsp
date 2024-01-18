@@ -5,24 +5,25 @@
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <!-- Body -->
 <div class="container-md" style="width: 500px;">
+	<form action="/board/modify" method="post" enctype="multipart/form-data">
 	<c:set value="${bdto.bvo}" var="bvo"/>
-	
 		<div class="mb-3">
 			<label for="title" class="form-label">[${bvo.bno}]번 게시글 (조회수 : ${bvo.readCount} / [${bvo.cmtQty}])</label> <input
-				type="text" name="title" class="form-control" id="title" value="${bvo.title}" disabled
+				type="text" name="title" class="form-control" id="title" value="${bvo.title}" 
 				placeholder="title">
+				<input type="hidden" name="bno" value="${bvo.bno}">
 		</div>
 		<div class="mb-3">
 			<label for="writer" class="form-label">writer</label> <input
-				type="text" class="form-control" name="writer" id="writer" value="${bvo.writer}" disabled>
+				type="text" class="form-control" name="writer" id="writer" value="${bvo.writer}" readonly>
 		</div>
 		<div class="mb-3">
 			<label for="content" class="form-label">content</label>
-			<textarea class="form-control" name="content" id="content" rows="3" disabled>${bvo.content}</textarea>
+			<textarea class="form-control" name="content" id="content" rows="3" >${bvo.content}</textarea>
 		</div>
 		 
-		
-		<div class="mb-3" id="fileZone">
+		<input type="hidden" id="uuids" name="uuids">
+		<div class="mb-3">
 			<label for="files" class="form-label">file</label>
 			<ul class="list-group">
 				<c:forEach items = "${bdto.flist}" var="fvo">
@@ -39,18 +40,32 @@
 						</c:otherwise>
 					</c:choose>
 					<div class="ms-2 me-auto">
-						<div><a href="/upload/${fvo.saveDir}/${fvo.uuid}_${fvo.fileName}" download>${fvo.fileName}</a>${fvo.fileSize}byte</div>
+						<div><span>${fvo.fileName} ${fvo.fileSize}byte</span>
+						<button type="button" data-uuid="${fvo.uuid}" class="btn file-x">X</button></div>
 					</div>
 				  </li>
 			  </c:forEach>
 			</ul>			
 		</div>
 		
+		<div class="mb-3">
+			<label for="content" class="form-label">file</label>
+			<input type="file" class="form-control" id="files" name="files" multiple style="display : none;"><br>
+			<button type="button" id="trigger" class="btn btn-primary">FileUpload</button>
+		</div>
 		
-		<button type="button" onclick="location.href='/board/${bvo.bno}/modify'" class="btn btn-primary" id="regBtn">수정</button>
+		<div class="mb-3" id="fileZone">
+		
+		</div>
+		
+		
+		<button type="submit" class="btn btn-primary" id="regBtn">수정하기</button>
+		</form>
 </div>
 
+	
 
-
+<script src="/resources/js/boardRegister.js"></script>
+<script src="/resources/js/boardModify.js"></script>
 <!-- /Body -->
 <jsp:include page="../layout/footer.jsp"></jsp:include>

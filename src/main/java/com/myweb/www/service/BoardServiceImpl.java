@@ -68,8 +68,33 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int addReadCount(long bno) {
-		// TODO Auto-generated method stub
 		return bdao.updateReadCount(bno);
+	}
+
+	@Override
+	public int modify(BoardVO bvo) {
+		return bdao.update(bvo);
+	}
+
+	@Override
+	public int modify(BoardDTO bdto,String[] uuids) {
+		BoardVO bvo = bdto.getBvo();
+		//title,content 업데이트
+		int isOk = bdao.update(bdto.getBvo());
+		
+		//file테이블에 신규 파일 업로드
+		if(bdto.getFlist()!=null) {
+			for(FileVO fvo : bdto.getFlist()) {
+				fvo.setBno(bvo.getBno());
+				isOk *= fdao.insertFile(fvo);
+			}
+		}
+		
+		//삭제한 파일 테이블에서 삭제
+		for(String uuid : uuids) {
+			isOk *= fdao.deleteFile(uuid);
+		}
+		return isOk;
 	}
 
 }

@@ -20,4 +20,8 @@ public interface BoardService {
 
 	int addReadCount(long bno);
 
+	int modify(BoardVO bvo);
+
+	int modify(BoardDTO boardDTO, String[] uuidArray);
+
 }

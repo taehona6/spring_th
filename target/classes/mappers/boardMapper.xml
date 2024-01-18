@@ -38,6 +38,9 @@
   		update board set read_count = read_count +1 where bno=#{bno} 
   	</update>
   
+  	<update id="update">
+  		update board set title = #{title}, content = #{content}, mod_at = now() where bno=#{bno}
+  	</update>
   
   <sql id="search">
 		<if test="type!=null">

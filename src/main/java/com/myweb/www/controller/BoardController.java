@@ -91,4 +91,30 @@ public class BoardController {
 		return "/board/list";
 	}	
 	
+	@GetMapping("/{bno}/modify")
+	public String modifyForm(@PathVariable long bno,Model m) {
+		BoardDTO bdto = bsv.getDetail(bno);
+		m.addAttribute("bdto",bdto);
+		return "/board/modify";
+	}
+	@PostMapping("/modify")
+	public String modify(BoardVO bvo, @RequestParam(name="files", required = false)MultipartFile[] files,String uuids) {
+		log.info("bvo :: {}",bvo);		
+//		bsv.modify(bvo);
+		
+		List<FileVO> flist = null;
+		if(files[0].getSize()>0) {
+			flist = fh.uploadFiles(files);
+		}
+		String[] uuidArray = uuids.split(",");
+		log.info("uuids :: >> {}",uuids);
+		log.info("uuid array :: >> {}",uuidArray.toString());
+		bsv.modify(new BoardDTO(bvo,flist),uuidArray);
+		
+		
+		
+		long bno = bvo.getBno();
+		return "redirect:/board/"+bno;
+	}
+	
 }

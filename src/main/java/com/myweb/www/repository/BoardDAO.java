@@ -21,4 +21,6 @@ public interface BoardDAO {
 
 	int updateReadCount(long bno);
 
+	int update(BoardVO bvo);
+
 }
