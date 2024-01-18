@@ -9,7 +9,7 @@
 
 <P> 한글 나옴? The time on the server is ${serverTime}. </P>
 <a href="/board/register">레지스터 ㄱㄱ</a><br>
-<a href="/board/">리스트</a><br>
+<a href="/board/list">리스트</a><br>
 	
 
 <jsp:include page="layout/footer.jsp"></jsp:include>

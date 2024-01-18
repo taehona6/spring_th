@@ -1,11 +1,7 @@
 package com.myweb.www.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,9 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.myweb.www.domain.BoardDTO;
 import com.myweb.www.domain.BoardVO;
+import com.myweb.www.domain.FileVO;
 import com.myweb.www.domain.PagingVO;
+import com.myweb.www.handler.FileHandler;
 import com.myweb.www.handler.PagingHandler;
 import com.myweb.www.service.BoardService;
 
@@ -32,27 +33,34 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 
 	private final BoardService bsv;
-	
+	private final FileHandler fh;
 	@GetMapping("/register")
 	public void registerForm() {
 		log.info("aa");
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO bvo) {
-		long bno = bsv.register(bvo);
-		
+	public String register(BoardVO bvo, @RequestParam(name="files", required = false)MultipartFile[] files) {
+//		long bno = bsv.register(bvo);
+		List<FileVO> flist = null;
+		if(files[0].getSize()>0) {
+			flist = fh.uploadFiles(files);
+		}
+		long bno = bsv.register(new BoardDTO(bvo,flist));
 		return "redirect:/board/"+bno;
 	}
 	
 	@GetMapping("/{bno}")
 	public String detail(@PathVariable long bno,Model m,HttpServletRequest request) {
+		readCountLogic(bno, request);
+		BoardDTO bdto = bsv.getDetail(bno);
+		m.addAttribute("bdto",bdto);
+		return "/board/detail";
+	}
+	
+	public void readCountLogic(long bno, HttpServletRequest request) {
 		HttpSession ses = request.getSession();
 		List<Long> readList = null;
-		BoardVO bvo = bsv.getDetail(bno);
-		if(bvo == null) {
-			return "index";
-		}
 		
 		readList = (ArrayList<Long>)ses.getAttribute("readList");
 		if(readList == null) {
@@ -67,11 +75,10 @@ public class BoardController {
 				ses.setAttribute("readList", readList);
 			}
 		}
-		m.addAttribute("bvo",bvo);
-		return "/board/detail";
 	}
 	
-	@GetMapping
+	
+	@GetMapping("/list")
 	public String list(Model m,PagingVO pgvo) {
 		List<BoardVO> boardList = null;
 //		boardList = bsv.getList();

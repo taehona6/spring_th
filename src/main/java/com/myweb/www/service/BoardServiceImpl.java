@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.myweb.www.domain.BoardDTO;
 import com.myweb.www.domain.BoardVO;
+import com.myweb.www.domain.FileVO;
 import com.myweb.www.domain.PagingVO;
 import com.myweb.www.repository.BoardDAO;
+import com.myweb.www.repository.FileDAO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +22,25 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardServiceImpl implements BoardService {
 
 	private final BoardDAO bdao;
+	private final FileDAO fdao;
 
 	@Override
 	@Transactional
-	public long register(BoardVO bvo) {
+	public long register(BoardDTO bdto) {
 		
-		int isOk = bdao.insert(bvo);
-
-		return isOk>0? bdao.selectMaxBno() : 0;
+		int isOk = bdao.insert(bdto.getBvo());
+		long bno = bdao.selectMaxBno();
+		if(bdto.getFlist() == null) {
+			return isOk>0? bno : 0;			
+		}
+		
+		if(isOk > 0 && bdto.getFlist().size() > 0) {
+			for(FileVO fvo : bdto.getFlist()) {
+				fvo.setBno(bno);
+				isOk *= fdao.insertFile(fvo);
+			}
+		}
+		return isOk>0? bno : 0;
 	}
 
 	@Override
@@ -45,10 +59,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO getDetail(long bno) {
+	public BoardDTO getDetail(long bno) {
 		BoardVO bvo = bdao.selectDetail(bno);
+		List<FileVO> fileList = fdao.selectFileList(bno);
 		
-		return bvo; 
+		return new BoardDTO(bvo,fileList); 
 	}
 
 	@Override

@@ -2,12 +2,13 @@ package com.myweb.www.service;
 
 import java.util.List;
 
+import com.myweb.www.domain.BoardDTO;
 import com.myweb.www.domain.BoardVO;
 import com.myweb.www.domain.PagingVO;
 
 public interface BoardService {
 
-	long register(BoardVO bvo);
+	long register(BoardDTO boardDTO);
 
 	List<BoardVO> getList();
 
@@ -15,7 +16,7 @@ public interface BoardService {
 
 	int getBoardTotalCount(PagingVO pgvo);
 
-	BoardVO getDetail(long bno);
+	BoardDTO getDetail(long bno);
 
 	int addReadCount(long bno);
 

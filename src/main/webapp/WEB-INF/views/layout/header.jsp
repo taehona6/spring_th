@@ -27,7 +27,7 @@
 				<a class="nav-link" href="/board/register">글쓰기</a>
 	        </li>
         	<li class="nav-item">
-				<a class="nav-link" href="/board/">게시판</a>
+				<a class="nav-link" href="/board/list">게시판</a>
 			</li>
         <sec:authorize access="isAuthenticated()">
 	        <sec:authentication property="principal.mvo.email" var="authEmail"/>
