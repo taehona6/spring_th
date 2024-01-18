@@ -1,5 +1,10 @@
 package com.myweb.www.controller;
 
+import java.util.List;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +32,14 @@ public class CommentController {
 		log.info("cmtQTy ::>> {}",cmtQty);
 		
 		return String.valueOf(cmtQty);
+	}
+	
+	@GetMapping(value = "/{bno}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<CommentVO> getCommentList(@PathVariable long bno) {
+		log.info("bno :: >> {}",bno);
+		
+		List<CommentVO> commentList = csv.getCommentList(bno);
+		
+		return commentList;
 	}
 }

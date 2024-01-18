@@ -1,5 +1,7 @@
 package com.myweb.www.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,5 +28,11 @@ public class CommentServiceImpl implements CommentService {
 		int cmtQty = bdao.selectCmtQty(cvo.getBno());
 		return cmtQty;
 		
+	}
+
+	@Override
+	public List<CommentVO> getCommentList(long bno) {
+		// TODO Auto-generated method stub
+		return cdao.selectCommentList(bno);
 	}
 }

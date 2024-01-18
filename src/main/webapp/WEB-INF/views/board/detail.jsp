@@ -51,19 +51,32 @@
 		<button type="button" onclick="location.href='/board/${bvo.bno}/delete'" class="btn btn-primary">글삭제</button>
 
 		<!-- 댓글 라인 -->
-		  <div class="mb-3 row">
-		    <label id="cmtWriter" for="inputPassword" class="col-sm-2 col-form-label">Tester</label>
+		<hr>
+		<div class="mb-3 row">
+		    <label id="cmtWriter" for="cmtText" class="col-sm-2 col-form-label">Tester</label>
 		    <div class="col-sm-10">
 		      <input type="text" class="" id="cmtText"><button type="button" id="cmtPostBtn" class="btn btn-primary">등록</button>
 		    </div>
-		  </div>
-
+		</div>
+		<hr>
+		<!-- 댓글 리스트 -->
+		<div id="cmtlistArea">
+			<div class="mb-3 row">
+			    <label  class="col-sm-2 col-form-label cmtWriter">작성자</label>
+			    <div class="col-sm-10" data-cno="" data-writer="">
+			      <input type="text" class="cmtText" id=""><button type="button" class="btn btn-primary cmtModBtn">수정</button>
+			    </div>
+			</div>
+		</div>
 </div>
 
 <script>
 let bnoVal = `<c:out value="${bdto.bvo.bno}"/>`;
 </script>
 <script src="/resources/js/boardComment.js"></script>
+<script>
+spreadComment(bnoVal)
+</script>
 
 <!-- /Body -->
 <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -10,6 +10,9 @@
 	values (#{bno}, #{writer}, #{content})
 </insert>
 
+<select id="selectCommentList" resultType="com.myweb.www.domain.CommentVO">
+	select * from comment where bno=#{bno}
+</select>
 
 
 </mapper>
