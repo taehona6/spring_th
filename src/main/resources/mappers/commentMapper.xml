@@ -14,5 +14,8 @@
 	select * from comment where bno=#{bno}
 </select>
 
+<update id="updateComment">
+	update comment set content=#{content},mod_at = now() where cno=#{cno}
+</update>
 
 </mapper>

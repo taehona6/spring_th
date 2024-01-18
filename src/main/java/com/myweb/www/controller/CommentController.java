@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,4 +43,14 @@ public class CommentController {
 		
 		return commentList;
 	}
+	
+	@PutMapping
+	public String modifyComment(@RequestBody CommentVO cvo) {
+		log.info("cvo ::>> {}",cvo);
+		
+		int isOk = csv.modifyComment(cvo);
+		
+		return isOk>0 ? "1":"0";
+	}
+	
 }
