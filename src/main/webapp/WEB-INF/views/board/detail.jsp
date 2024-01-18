@@ -49,9 +49,18 @@
 		
 		<button type="button" onclick="location.href='/board/${bvo.bno}/modify'" class="btn btn-primary" id="regBtn">수정</button>
 		<button type="button" onclick="location.href='/board/${bvo.bno}/delete'" class="btn btn-primary">글삭제</button>
+
+		<!-- 댓글 라인 -->
+		  <div class="mb-3 row">
+		    <label id="cmtWriter" for="inputPassword" class="col-sm-2 col-form-label">Tester</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="" id="cmtText"><button type="button" id="cmtPostBnt" class="btn btn-primary">등록</button>
+		    </div>
+		  </div>
+
 </div>
 
 
-
+<script src="/resources/js/boardComment.js"></script>
 <!-- /Body -->
 <jsp:include page="../layout/footer.jsp"></jsp:include>
