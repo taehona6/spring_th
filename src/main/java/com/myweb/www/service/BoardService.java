@@ -24,4 +24,6 @@ public interface BoardService {
 
 	int modify(BoardDTO boardDTO, String[] uuidArray);
 
+	int remove(long bno);
+
 }

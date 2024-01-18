@@ -41,6 +41,10 @@
   	<update id="update">
   		update board set title = #{title}, content = #{content}, mod_at = now() where bno=#{bno}
   	</update>
+  	
+  	<delete id="delete">
+  		delete from board where bno=#{bno}
+  	</delete>
   
   <sql id="search">
 		<if test="type!=null">

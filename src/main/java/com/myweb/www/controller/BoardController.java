@@ -116,5 +116,10 @@ public class BoardController {
 		long bno = bvo.getBno();
 		return "redirect:/board/"+bno;
 	}
-	
+	@GetMapping("/{bno}/delete")
+	public String delete(@PathVariable long bno) {
+		bsv.remove(bno);
+		
+		return "redirect:/board/list";
+	}
 }

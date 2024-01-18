@@ -97,4 +97,11 @@ public class BoardServiceImpl implements BoardService {
 		return isOk;
 	}
 
+	@Override
+	@Transactional
+	public int remove(long bno) {
+		fdao.deleteFileBno(bno);
+		return bdao.delete(bno);
+	}
+
 }

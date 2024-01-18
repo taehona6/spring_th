@@ -23,4 +23,6 @@ public interface BoardDAO {
 
 	int update(BoardVO bvo);
 
+	int delete(long bno);
+
 }

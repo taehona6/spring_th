@@ -17,5 +17,8 @@
   <delete id="deleteFile">
   	delete from file where uuid = #{uuid}
   </delete>
+  <delete id="deleteFileBno">
+  	delete from file where bno = #{bno}
+  </delete>
   
   </mapper>
