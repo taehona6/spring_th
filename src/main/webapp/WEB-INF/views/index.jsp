@@ -4,11 +4,11 @@
 <jsp:include page="layout/header.jsp"></jsp:include>
 
 <h1>
-	index pageeeeeee  
+	${ip}   
 </h1>
 
 <P> ${serverTime}. </P>
-<P> ${ip} </P>
+
 <a href="/board/register">레지스터 ㄱㄱ</a><br>
 <a href="/board/list">리스트</a><br>
 
