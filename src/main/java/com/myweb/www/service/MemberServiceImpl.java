@@ -1,5 +1,6 @@
 package com.myweb.www.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.myweb.www.repository.MemberDAO;
@@ -31,6 +32,27 @@ public class MemberServiceImpl implements MemberService{
 	public boolean isDuplicated(String email) {
 		MemberVO mvo = mdao.selectMemberWhereEmail(email);
 		return mvo == null? false : true; 
+	}
+
+	@Override
+	public MemberVO getDetail(String email) {
+		// TODO Auto-generated method stub
+		return mdao.selectMemberWhereEmail(email);
+	}
+
+	@Override
+	public int modify(MemberVO mvo) {
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		
+		if(mvo.getPwd().length()==0 || mvo.getPwd()==null) {
+			log.info("pw : "+mvo.getPwd());
+			mvo.setPwd(mdao.selectMemberWhereEmail(mvo.getEmail()).getPwd());
+		}else {
+		String pwd = mvo.getPwd();
+		String encPwd = pe.encode(pwd);
+		mvo.setPwd(encPwd);
+		}
+		return mdao.update(mvo);
 	}
 
 }

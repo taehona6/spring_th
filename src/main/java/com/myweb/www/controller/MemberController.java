@@ -1,9 +1,16 @@
 package com.myweb.www.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,5 +60,25 @@ public class MemberController {
 		re.addAttribute("email",request.getAttribute("email"));
 		re.addAttribute("errMsg", request.getAttribute("errMsg"));
 		return "redirect:/member/login";
+	}
+	
+	@GetMapping({"/detail","/modify"})
+	public void detail(Principal p, Model m) {
+		MemberVO mvo = msv.getDetail(p.getName());
+		log.info("mvo ::::: {} ",mvo);
+		m.addAttribute("mvo",mvo);
+	}
+	
+	@PostMapping("/modify")
+	public String modify(MemberVO mvo,HttpServletRequest request,HttpServletResponse response) {
+		log.info("post modify mvo::: {}",mvo);
+		msv.modify(mvo);
+
+		//로그아웃
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		new SecurityContextLogoutHandler().logout(request,response, authentication);
+		
+		
+		return "/member/login";
 	}
 }

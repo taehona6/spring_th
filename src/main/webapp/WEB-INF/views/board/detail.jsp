@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <!-- Body -->
 
@@ -76,16 +76,19 @@
 		
 		<button type="button" onclick="location.href='/board/${bvo.bno}/modify'" class="btn btn-primary" id="regBtn">수정</button>
 		<button type="button" onclick="location.href='/board/${bvo.bno}/delete'" class="btn btn-primary">글삭제</button>
-
+	       
 		<!-- 댓글 라인 -->
-		<hr>
-		<div class="mb-3 row">
-		    <label id="cmtWriter" for="cmtText" class="col-sm-2 col-form-label">Tester</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="" id="cmtText"><button type="button" id="cmtPostBtn" class="btn btn-primary">등록</button>
-		    </div>
-		</div>
-		<hr>
+		
+	        <sec:authentication property="principal.mvo.email" var="authEmail"/>
+			<hr>
+			<div class="mb-3 row">
+			    <label id="cmtWriter" for="cmtText" class="col-sm-2 col-form-label">${authEmail}</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="" id="cmtText"><button type="button" id="cmtPostBtn" class="btn btn-primary">등록</button>
+			    </div>
+			</div>
+			<hr>
+		
 		<!-- 댓글 리스트 -->
 		<div id="cmtlistArea">
 			<div class="mb-3 row">
@@ -99,6 +102,8 @@
 
 <script>
 let bnoVal = `<c:out value="${bdto.bvo.bno}"/>`;
+let loginEmail = `<c:out value="${authEmail}"/>`;
+
 </script>
 <script src="/resources/js/boardComment.js"></script>
 <script>

@@ -10,4 +10,8 @@ public interface MemberService {
 
 	boolean isDuplicated(String email);
 
+	MemberVO getDetail(String name);
+
+	int modify(MemberVO mvo);
+
 }

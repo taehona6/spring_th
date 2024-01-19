@@ -1,5 +1,6 @@
 console.log('bc.js in')
 console.log(bnoVal)
+console.log(loginEmail)
 document.getElementById('cmtPostBtn').addEventListener('click',()=>{
     let cmtText = document.getElementById('cmtText');
     if(cmtText.value == null || cmtText.value == ''){
@@ -66,9 +67,13 @@ function spreadComment(bnoVal){
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label cmtWriter">${cvo.writer}</label>
 			        <div class="col-sm-10" data-cno="${cvo.cno}" data-writer="${cvo.writer}">
-                        <input type="text" class="cmtText" value="${cvo.content}"readonly>
-                        <button type="button" class="btn btn-primary cmtModBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-                        <button type="button" class="btn btn-primary cmtDelBtn">삭제</button>
+                        <input type="text" class="cmtText" value="${cvo.content}"readonly>`
+                        if(loginEmail==cvo.writer){
+                            add += `
+                            <button type="button" class="btn btn-primary cmtModBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+                            <button type="button" class="btn btn-primary cmtDelBtn">삭제</button>`
+                        }
+                add +=`
 			        </div>
 			    </div>
                 `

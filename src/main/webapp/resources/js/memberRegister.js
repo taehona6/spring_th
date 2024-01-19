@@ -2,9 +2,9 @@ document.getElementById('idValidBtn').addEventListener('click',()=>{
     let email = document.getElementById('email').value
     idValidation(email).then(result=>{
         if(result == "1"){
-            alert('성공로직')
+            alert('사용 가능한 이메일입니다.')
         }else{
-            alert('실패')
+            alert('이미 사용중인 이메일입니다.')
         }
     })
     

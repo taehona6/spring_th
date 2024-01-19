@@ -27,4 +27,8 @@
   	update member set last_login = now()
   	where email = #{email}
   </update>
+  
+  <update id="update">
+  	update member set pwd = #{pwd}, nick_name = #{nickName}
+  </update>
   </mapper>
