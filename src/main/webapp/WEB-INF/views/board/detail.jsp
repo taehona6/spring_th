@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <!-- Body -->
-
+<sec:authentication property="principal.mvo.email" var="authEmail"/>
 <!-- 모달 -->
 <!-- Button trigger modal -->
 <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -73,13 +73,14 @@
 			</ul>			
 		</div>
 		
-		
-		<button type="button" onclick="location.href='/board/${bvo.bno}/modify'" class="btn btn-primary" id="regBtn">수정</button>
-		<button type="button" onclick="location.href='/board/${bvo.bno}/delete'" class="btn btn-primary">글삭제</button>
+		<c:if test="${authEmail eq bvo.writer}">
+			<button type="button" onclick="location.href='/board/${bvo.bno}/modify'" class="btn btn-primary" id="regBtn">수정</button>
+			<button type="button" onclick="location.href='/board/${bvo.bno}/delete'" class="btn btn-primary">글삭제</button>
+		</c:if>
 	       
 		<!-- 댓글 라인 -->
 		
-	        <sec:authentication property="principal.mvo.email" var="authEmail"/>
+	        
 			<hr>
 			<div class="mb-3 row">
 			    <label id="cmtWriter" for="cmtText" class="col-sm-2 col-form-label">${authEmail}</label>

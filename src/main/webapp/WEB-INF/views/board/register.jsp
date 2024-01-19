@@ -6,6 +6,7 @@
 
 <!-- Body -->
 <sec:authentication property="principal.mvo.nickName" var="authNick"/>
+<sec:authentication property="principal.mvo.email" var="authEmail"/>
 <div class="container-md" style="width: 500px;">
 	<form action="/board/register" method="post" enctype="multipart/form-data">
 		<div class="mb-3">
@@ -15,7 +16,7 @@
 		</div>
 		<div class="mb-3">
 			<label for="writer" class="form-label">writer</label> <input
-				type="text" class="form-control" name="writer" id="writer" value="${authNick}" readonly>
+				type="text" class="form-control" name="writer" id="writer" value="${authEmail}" readonly>
 		</div>
 		<div class="mb-3">
 			<label for="content" class="form-label">content</label>
