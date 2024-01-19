@@ -17,12 +17,14 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public boolean updateLastLogin(String authEmail) {
 		// TODO Auto-generated method stub
-	return mdao.updateLastLogin(authEmail) > 0 ? true :false;
+		return mdao.updateLastLogin(authEmail) > 0 ? true :false;
 	}
 
 	@Override
 	public int register(MemberVO mvo) {
-		return mdao.insert(mvo);
+		
+		mdao.insert(mvo);
+		return mdao.insertAuthMember(mvo); 
 	}
 
 	@Override

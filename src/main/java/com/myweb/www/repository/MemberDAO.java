@@ -15,4 +15,6 @@ public interface MemberDAO {
 
 	int insert(MemberVO mvo);
 
+	int insertAuthMember(MemberVO mvo);
+
 }

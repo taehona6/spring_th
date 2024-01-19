@@ -17,4 +17,14 @@
   	insert into member (email,pwd,nick_name)
   	values (#{email},#{pwd},#{nickName})
   </insert>
+  
+  <insert id="insertAuthMember">
+ 	insert into auth_member values (#{email},'ROLE_USER')
+  </insert>
+  
+  
+  <update id="updateLastLogin">
+  	update member set last_login = now()
+  	where email = #{email}
+  </update>
   </mapper>
