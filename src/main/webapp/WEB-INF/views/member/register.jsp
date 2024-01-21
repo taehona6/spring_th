@@ -11,7 +11,8 @@
 		<span>이메일</span>
 		</div>
 		<div class="col-auto">
-			<input type="text" name="email" class="form-control" id="email">
+			<input type="text" class="form-control" id="email">
+			<input type="hidden" name="email" class="form-control" id="realemail">
 		</div>
 		<div class="col-auto">
 			<button type="button" id="idValidBtn" class="btn btn-primary mb-3">중복확인</button>

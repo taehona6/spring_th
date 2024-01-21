@@ -42,6 +42,7 @@ public class FileHandler {
 			
 			String originalFileName = file.getOriginalFilename();
 			String fileName = originalFileName.substring(originalFileName.lastIndexOf(File.separator)+1);
+			log.info("MMMMMMM>>>originalFileName.indexof : {}",originalFileName.lastIndexOf(File.separator));
 			log.info("MMMMMMM>>>originalFileName : {}",originalFileName);
 			log.info(">>>file name : {}",fileName);
 			fvo.setFileName(fileName);

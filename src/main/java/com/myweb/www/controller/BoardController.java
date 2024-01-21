@@ -37,7 +37,6 @@ public class BoardController {
 	private final FileHandler fh;
 	@GetMapping("/register")
 	public void registerForm() {
-		log.info("aa");
 	}
 	
 	@PostMapping("/register")
